@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AQDS — Agentic Quality Detection System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">AQ</div>
+      <div>
+        <div class="logo-title">AQDS</div>
+        <div class="logo-sub">Agentic Quality Detection System</div>
+      </div>
+    </div>
+    <nav>
+      <span class="nav-tag">AI Powered</span>
+      <span class="nav-tag">Gemini Vision</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="bokeh-wrap">
+    <div class="bokeh b1"></div>
+    <div class="bokeh b2"></div>
+    <div class="bokeh b3"></div>
+    <div class="bokeh b4"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Powered by Gemini Vision AI</div>
+    <h1>Smart Product <span class="highlight">Quality Inspector</span></h1>
+    <p class="hero-sub">Upload any product image and let our AI instantly detect defects — cracks, scratches, dents, and more.</p>
+    <div class="hero-meta">Built by <strong>Neha Mishra</strong></div>
+    <div class="hero-chips">
+      <div class="chip">⚡ Instant Analysis</div>
+      <div class="chip">🎯 High Accuracy</div>
+      <div class="chip">📊 Detailed Report</div>
+    </div>
+  </div>
+
+  <!-- Scroll button -->
+  <a class="scroll-btn" href="#inspectionPanel">
+    <span>Start Inspection</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
+
+</section>
+
+<section class="features-row">
+  <div class="feature-card">
+    <div class="feature-icon">🔍</div>
+    <h4>AI Vision Analysis</h4>
+    <p>Gemini Vision scans every pixel for cracks, scratches, dents and surface defects</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">⚡</div>
+    <h4>Instant Verdict</h4>
+    <p>Get Accept or Reject decision in seconds with confidence score</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">📋</div>
+    <h4>Detailed Report</h4>
+    <p>Download full inspection report with severity breakdown and findings</p>
+  </div>
+</section>
+
+<main class="container" id="inspectionPanel">
+
+  <div class="section-label">INSPECTION PANEL</div>
+
+  <div class="upload-card" id="uploadCard" onclick="document.getElementById('fileInput').click()">
+    <span class="sparkle"></span>
+  <span class="sparkle"></span>
+  <span class="sparkle"></span>
+  <span class="sparkle"></span>
+  <div class="upload-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke=" #8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+    </div>
+    <h3>Drop product image here</h3>
+    <p>or <span class="link">browse to upload</span></p>
+    <p class="formats">JPG · PNG · WEBP supported</p>
+  </div>
+  <input type="file" id="fileInput" accept="image/*">
+
+  <div class="preview-section" id="previewSection">
+    <div class="preview-card">
+      <div class="preview-label">
+        <span>Product Image</span>
+        <span class="preview-badge">Ready to Analyze</span>
+      </div>
+      <img id="previewImg" src="" alt="Product Preview">
+    </div>
+    <button class="analyze-btn" id="analyzeBtn" onclick="analyzeImage()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Run AI Analysis
+    </button>
+  </div>
+
+  <div class="loading-overlay" id="loading">
+    <div class="neon-bg" id="neonBg"></div>
+    <div class="loading-content">
+      <div class="pulse-wrap">
+        <div class="p-ring"></div>
+        <div class="p-ring"></div>
+        <div class="p-ring"></div>
+        <div class="p-center"></div>
+      </div>
+      <div class="ai-label">AI ANALYZING...</div>
+      <div class="loading-steps">
+        <div class="lstep" id="ls1">▸ Uploading image</div>
+        <div class="lstep" id="ls2">▸ Scanning for defects</div>
+        <div class="lstep" id="ls3">▸ Processing results</div>
+        <div class="lstep" id="ls4">▸ Generating verdict</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-card" id="resultBox">
+
+    <div class="verdict-row" id="verdictDiv"></div>
+
+    <div class="dashboard-grid">
+      <div class="dash-card">
+        <div class="dash-label">Product Type</div>
+        <div class="dash-val" id="dProductType">—</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Confidence</div>
+        <div class="dash-val" id="dConfidence">—</div>
+        <div class="conf-bar-wrap"><div class="conf-bar" id="confBar"></div></div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Timestamp</div>
+        <div class="dash-val" id="dTime">—</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Defects Found</div>
+        <div class="dash-val" id="dCount">—</div>
+      </div>
+    </div>
+
+    <div class="severity-row" id="severityRow"></div>
+
+    <div class="divider"></div>
+    <h4 class="findings-title">Detailed Findings</h4>
+    <ul class="findings" id="findingsList"></ul>
+
+    <div class="action-row">
+      <button class="download-btn" onclick="downloadReport()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Report
+      </button>
+      <button class="reset-btn" onclick="resetAll()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        New Inspection
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-row" id="statsSection">
+    <div class="section-label" style="grid-column:1/-1">SESSION STATS</div>
+    <div class="stat-card">
+      <div class="stat-val" id="sTotal">0</div>
+      <div class="stat-lbl">Total Analyzed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val accept-val" id="sAccept">0</div>
+      <div class="stat-lbl">Accepted</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val reject-val" id="sReject">0</div>
+      <div class="stat-lbl">Rejected</div>
+    </div>
+  </div>
+
+  <section class="how-section">
+    <div class="section-label">HOW IT WORKS</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Upload Image</h4>
+        <p>Take a photo of any product and upload it to the inspection panel</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>AI Scans</h4>
+        <p>Gemini Vision AI analyzes the image for cracks, scratches, dents and more</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Get Verdict</h4>
+        <p>Receive Accept or Reject decision with full report and severity breakdown</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const API_KEY = "AIzaSyDQ2nDk1O9-QsQGLzs2rJNA1sD4uOU_tdo";
+let base64Image = null;
+let currentResult = null;
+let stats = { total: 0, accept: 0, reject: 0 };
+
+const neonBg = document.getElementById('neonBg');
+for(let i = 0; i < 8; i++){
+  const h = document.createElement('div'); h.className = 'neon-line-h'; h.style.top = (i*14)+'%'; neonBg.appendChild(h);
+  const v = document.createElement('div'); v.className = 'neon-line-v'; v.style.left = (i*14)+'%'; neonBg.appendChild(v);
+}
+for(let i = 0; i < 4; i++){
+  const g = document.createElement('div'); g.className = 'neon-glow-blob';
+  g.style.cssText = `width:${Math.random()*80+60}px;height:${Math.random()*80+60}px;top:${Math.random()*80}%;left:${Math.random()*80}%;animation-duration:${Math.random()*3+3}s;animation-delay:${Math.random()*2}s`;
+  neonBg.appendChild(g);
+}
+
+document.getElementById('fileInput').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    base64Image = ev.target.result.split(',')[1];
+    document.getElementById('previewImg').src = ev.target.result;
+    document.getElementById('previewSection').style.display = 'flex';
+    document.getElementById('resultBox').style.display = 'none';
+    document.getElementById('uploadCard').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+});
+
+const uploadCard = document.getElementById('uploadCard');
+uploadCard.addEventListener('dragover', e => { e.preventDefault(); uploadCard.classList.add('drag-over'); });
+uploadCard.addEventListener('dragleave', () => uploadCard.classList.remove('drag-over'));
+uploadCard.addEventListener('drop', e => {
+  e.preventDefault(); uploadCard.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    base64Image = ev.target.result.split(',')[1];
+    document.getElementById('previewImg').src = ev.target.result;
+    document.getElementById('previewSection').style.display = 'flex';
+    document.getElementById('resultBox').style.display = 'none';
+    document.getElementById('uploadCard').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+});
+
+function animateSteps(){
+  const steps = ['ls1','ls2','ls3','ls4'];
+  const times = [300, 1400, 2600, 3800];
+  steps.forEach((id, i) => setTimeout(() => document.getElementById(id).classList.add('active'), times[i]));
+}
+
+async function analyzeImage(){
+  if(!base64Image) return;
+  document.getElementById('analyzeBtn').disabled = true;
+  document.getElementById('loading').style.display = 'flex';
+  document.getElementById('resultBox').style.display = 'none';
+  document.querySelectorAll('.lstep').forEach(s => s.classList.remove('active'));
+  animateSteps();
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              { text: `You are a Quality Control Inspector AI. ONLY analyze product images.
+
+First: Is this a manufactured product (electronics, tyre, bottle, ceramic, glass, metal, plastic, tool, machinery)?
+- If NOT (selfie, meme, food, animal, screenshot): verdict = "INVALID"
+- If YES: analyze for defects
+
+JSON only (no extra text):
+{
+  "verdict": "ACCEPT" or "REJECT" or "INVALID",
+  "product_type": "product name",
+  "confidence": 85,
+  "summary": "one line finding",
+  "findings": [
+    {"defect": "name", "severity": "High/Medium/Low", "detail": "description"}
+  ]
+}` },
+              { inline_data: { mime_type: "image/jpeg", data: base64Image } }
+            ]
+          }]
+        })
+      }
+    );
+    const data = await response.json();
+    const text = data.candidates[0].content.parts[0].text;
+    const clean = text.replace(/```json|```/g, '').trim();
+    currentResult = JSON.parse(clean);
+    showResult(currentResult);
+  } catch(err) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('resultBox').style.display = 'block';
+    document.getElementById('verdictDiv').innerHTML = `<div class="verdict-badge invalid"><span class="verdict-icon">⚠️</span><div><div class="verdict-label" style="color:#d97706">ERROR</div><div class="verdict-summary">API key check karo aur dobara try karo.</div></div></div>`;
+  }
+  document.getElementById('analyzeBtn').disabled = false;
+}
+
+function showResult(result){
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('resultBox').style.display = 'block';
+
+  if(result.verdict === 'INVALID'){
+    document.getElementById('verdictDiv').innerHTML = `<div class="verdict-badge invalid"><span class="verdict-icon">⚠️</span><div><div class="verdict-label" style="color:#d97706">INVALID IMAGE</div><div class="verdict-summary">Please upload a product image (tyre, bottle, electronics, etc.)</div></div></div>`;
+    document.getElementById('dProductType').textContent = '—';
+    document.getElementById('dConfidence').textContent = '—';
+    document.getElementById('dTime').textContent = new Date().toLocaleTimeString();
+    document.getElementById('dCount').textContent = '—';
+    document.getElementById('severityRow').innerHTML = '';
+    document.getElementById('findingsList').innerHTML = '';
+    return;
+  }
+
+  const isReject = result.verdict === 'REJECT';
+  document.getElementById('verdictDiv').innerHTML = `
+    <div class="verdict-badge ${isReject ? 'reject' : 'accept'}">
+      <span class="verdict-icon">${isReject ? '❌' : '✅'}</span>
+      <div>
+        <div class="verdict-label">${result.verdict}</div>
+        <div class="verdict-summary">${result.summary}</div>
+      </div>
+    </div>`;
+
+  document.getElementById('dProductType').textContent = result.product_type || 'Unknown';
+  document.getElementById('dConfidence').textContent = (result.confidence || 0) + '%';
+  document.getElementById('dTime').textContent = new Date().toLocaleTimeString();
+
+  const defectCount = result.findings ? result.findings.filter(f => f.defect !== 'No defects found').length : 0;
+  document.getElementById('dCount').textContent = defectCount === 0 ? 'None' : defectCount;
+
+  const confBar = document.getElementById('confBar');
+  confBar.style.width = '0%';
+  setTimeout(() => {
+    confBar.style.width = (result.confidence || 0) + '%';
+    confBar.style.background = result.confidence > 70 ? '#22c55e' : result.confidence > 40 ? '#f59e0b' : '#ef4444';
+  }, 200);
+
+  const high = result.findings.filter(f => f.severity === 'High').length;
+  const med = result.findings.filter(f => f.severity === 'Medium').length;
+  const low = result.findings.filter(f => f.severity === 'Low').length;
+  document.getElementById('severityRow').innerHTML = `
+    <div class="sev-chip high-chip">🔴 High: ${high}</div>
+    <div class="sev-chip med-chip">🟡 Medium: ${med}</div>
+    <div class="sev-chip low-chip">🟢 Low: ${low}</div>`;
+
+  const list = document.getElementById('findingsList');
+  list.innerHTML = '';
+  result.findings.forEach(f => {
+    const sev = (f.severity || 'low').toLowerCase();
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span class="sev-dot ${sev}"></span>
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <strong>${f.defect}</strong>
+          <span class="sev-badge ${sev}">${f.severity}</span>
+        </div>
+        <p>${f.detail}</p>
+      </div>`;
+    list.appendChild(li);
+  });
+
+  stats.total++;
+  if(isReject) stats.reject++; else stats.accept++;
+  document.getElementById('sTotal').textContent = stats.total;
+  document.getElementById('sAccept').textContent = stats.accept;
+  document.getElementById('sReject').textContent = stats.reject;
+  document.getElementById('statsSection').style.display = 'grid';
+}
+
+function downloadReport(){
+  if(!currentResult) return;
+  const now = new Date().toLocaleString();
+  const inspectionId = 'AQDS-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.floor(Math.random()*900+100);
+  const findings = currentResult.findings.map(f => `  • [${f.severity}] ${f.defect}: ${f.detail}`).join('\n');
+  
+  const high = currentResult.findings.filter(f => f.severity === 'High').length;
+  const med = currentResult.findings.filter(f => f.severity === 'Medium').length;
+  const defectCount = currentResult.findings.filter(f => f.defect !== 'No defects found').length;
+  
+  const riskLevel = high > 0 ? 'CRITICAL' : med > 0 ? 'HIGH' : defectCount > 0 ? 'MEDIUM' : 'LOW';
+  
+  const recommendation = currentResult.verdict === 'ACCEPT' 
+    ? 'Clear for dispatch — product meets quality standards'
+    : currentResult.verdict === 'REJECT'
+    ? high > 0 ? 'Discard product — severe defects detected' : 'Send for repair — minor defects detected'
+    : 'Invalid image — please upload a valid product image';
+
+  const report = `
+╔══════════════════════════════════════════════╗
+║   AQDS — Agentic Quality Detection System    ║
+║              Inspection Report               ║
+╚══════════════════════════════════════════════╝
+
+  Inspection ID : ${inspectionId}
+  Date & Time   : ${now}
+  Product Type  : ${currentResult.product_type || 'Unknown'}
+  Confidence    : ${currentResult.confidence || 0}%
+  Verdict       : ${currentResult.verdict}
+  Risk Level    : ${riskLevel}
+  Defects Found : ${defectCount === 0 ? 'None' : defectCount}
+  Summary       : ${currentResult.summary}
+
+──────────────────────────────────────────────
+  RECOMMENDATION
+──────────────────────────────────────────────
+  ${recommendation}
+
+──────────────────────────────────────────────
+  DETAILED FINDINGS
+──────────────────────────────────────────────
+${findings}
+
+──────────────────────────────────────────────
+  Developed by  : Neha Mishra
+  System        : AQDS v1.0
+  Powered by    : Google Gemini Vision AI
+──────────────────────────────────────────────
+  `.trim();
+
+  const blob = new Blob([report], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `AQDS_Report_${inspectionId}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetAll(){
+  base64Image = null; currentResult = null;
+  document.getElementById('previewSection').style.display = 'none';
+  document.getElementById('resultBox').style.display = 'none';
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('uploadCard').style.display = 'flex';
+  document.getElementById('fileInput').value = '';
+  document.getElementById('previewImg').src = '';
+}
+</script>
+</body>
+</html>
