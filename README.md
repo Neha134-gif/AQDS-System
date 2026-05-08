@@ -91,21 +91,19 @@ No frameworks. No build tools. Runs entirely in the browser.
 ## Project Structure
 
 ```
-My-Projects/
-└── AQDS-System/
-    ├── .gitignore
-    ├── index.html          # Main application
-    ├── style.css           # Dark theme UI
-    ├── README.md
-    ├── progress.md         # Development log
-    └── screenshots/
-        ├── Website-UI.png
-        ├── valid-image.png
-        ├── valid-image-analysis.png
-        ├── invalid-image.png
-        ├── invalid-image-analysis.png
-        └── report-card.png
-```
+AQDS-System/
+├── .gitignore
+├── index.html              # Main application
+├── style.css               # Dark theme UI
+├── README.md
+├── progress.md             # Development log
+└── screenshots/
+    ├── Website-UI.png
+    ├── valid-image.png
+    ├── valid-image-analysis.png
+    ├── invalid-image.png
+    ├── invalid-image-analysis.png
+    └── report-card.png
 
 ---
 
