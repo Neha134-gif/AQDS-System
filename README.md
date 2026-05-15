@@ -107,46 +107,51 @@ AQDS-System/
 
 ---
 
-## Current Status  — Phase 1 Complete ✅
+## Current Status — Phase 1 Complete ✅
 
 - [x] Dark theme UI with drag & drop upload
-- [x] Gemini Vision API integration
+- [x] Gemini Vision API integration  
 - [x] Accept / Reject / Invalid verdict engine
-- [x] Confidence score with visual indicator
-- [x] Severity breakdown (High / Medium / Low)
-- [x] Downloadable inspection report
+- [x] Confidence score with visual progress bar
+- [x] Severity breakdown — High / Medium / Low
+- [x] Detailed findings with defect descriptions
+- [x] Downloadable inspection report (.txt)
 - [x] Session statistics tracking
-- [x] Invalid image detection
+- [x] Invalid image detection with descriptive feedback
+- [x] Hero section with scroll-to-inspection button
+
+> ⚠️ **Note:** API key secured locally. Full secure deployment planned in Phase 2 with backend integration.
 
 ---
 
 ## Roadmap
 
-### Phase 2 — Backend & Storage
+### 🔄 Phase 2 — Backend & Storage *(Planned)*
 - Python Flask / Node.js backend
-- MongoDB for inspection history
-- User authentication (login / signup)
+- Secure API key management via server
+- MongoDB for inspection history & logs
+- User authentication — login / signup
 - Batch image processing
 
-### Phase 3 — Custom ML Model
+### 🔬 Phase 3 — Custom ML Model *(Planned)*
 - YOLOv11 for real-time object detection
 - Custom dataset of defective product images
 - CNN model trained for specific defect types
 - Live camera feed for production line analysis
 
-### Phase 4 — Full Industrial System
-- IoT integration (Raspberry Pi / Arduino)
+### 🏭 Phase 4 — Full Industrial System *(Planned)*
+- IoT integration — Raspberry Pi / Arduino
 - Conveyor belt auto-rejection mechanism
-- Analytics dashboard — weekly/monthly reports
+- Analytics dashboard — weekly / monthly reports
 - Email / SMS alerts for supervisors
 - React Native mobile app
-- Cloud deployment (AWS / Google Cloud)
+- Cloud deployment — AWS / Google Cloud
 
 ---
 
 ## Built By
 
 **Neha Mishra**  
-B.Tech CSE  
+B.Tech CSE — 2nd Year  
 
-[![GitHub](https://img.shields.io/badge/GitHub-Neha134--gif-181717?style=flat&logo=github)](https://github.com/Neha134-gif/My-Projects)
+[![GitHub](https://img.shields.io/badge/GitHub-Neha134--gif-181717?style=flat&logo=github)](https://github.com/Neha134-gif/AQDS-System)
